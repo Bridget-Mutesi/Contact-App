@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.clone.contactapp.databinding.ContactItemListLayoutBinding
+import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
+
 
 class ContactAdaptor(var contactsList: List<ContactData>): RecyclerView.Adapter<ContactsViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder { //
@@ -17,9 +20,20 @@ class ContactAdaptor(var contactsList: List<ContactData>): RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         var contact = contactsList.get(position)
+        var binding = holder.binding
         holder.binding.tvName.text = contact.name
         holder.binding.tvNumber.text = contact.number
         holder.binding.tvemail.text = contact.email
+        Picasso
+            .get()
+            .load(contact.avatar)
+            .resize(80,80)
+            .transform(CropCircleTransformation())
+            .centerCrop()
+            .into(binding.ivavatar)
+
+
+
 
 
 
